@@ -1,7 +1,13 @@
 # Mybatis Generator for Jeesite Style Plugin #
 
 
- This is a plugin of org.mybatis.generator() for generate the mapper in thinkgem.jeesite() code style  
+ This is a plugin of org.mybatis.generator
+> http://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core
+
+ for generate the DAO mapper and entity in thinkgem.jeesite code style.
+> https://github.com/thinkgem/jeesite
+
+ Yes, this is a plugin of another plugin orz...  
 
 ## Usage ##
 
@@ -30,11 +36,11 @@ If you import the Mybatis Generator Plugin into  `pom.xml`  directly, you can de
 				<groupId>mysql</groupId>
 				...
 			</dependency>
-			<dependency>
+			**<dependency>
 				<groupId>com.johnzhsk.mgjsp</groupId>
 				<artifactId>mybatis-generator-jeesite-style-plugin</artifactId>
 				<version>1.0</version>
-			</dependency>
+			</dependency>**
 		</dependencies>
 	</plugin>
     
@@ -49,11 +55,11 @@ If you import the Mybatis Generator Plugin into  `pom.xml`  directly, you can de
 			<version>1.3.2</version>
 		</dependency>
 
-		<dependency>
+		**<dependency>
 			<groupId>com.johnzhsk.mgjsp</groupId>
 			<artifactId>mybatis-generator-jeesite-style-plugin</artifactId>
 			<version>1.0</version>
-		</dependency>
+		</dependency>**
     </dependencies>
 
 ###Step 3###
@@ -73,20 +79,22 @@ Attention to the consequence of `<plugin>` dom, it **should always be placed bef
 
 Then switch the generation like this:
 
-    <table tableName="t_label_storage_in" domainObjectName="LabelStorageIn" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+    <table tableName="${your_table_name}" domainObjectName="${domain_object_name}" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false" enableDeleteByPrimaryKey="true">
+    	<columnOverride column="create_by" javaType="com.thinkgem.jeesite.modules.sys.entity.User" property="createBy" jdbcType="VARCHAR"/>
+        <columnOverride column="update_by" javaType="com.thinkgem.jeesite.modules.sys.entity.User" property="updateBy" jdbcType="VARCHAR"/>
     </table>
 
 And then **if you have database columns related to other object classes you've already defined** ,then you can config like this:
 
-    <table tableName="t_label_storage_in" domainObjectName="LabelStorageIn" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+    <table tableName="${your_table_name}" domainObjectName="${domain_object_name}" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false" enableDeleteByPrimaryKey="true">
         <columnOverride column="create_by" javaType="com.thinkgem.jeesite.modules.sys.entity.User" property="createBy" jdbcType="VARCHAR"/>
         <columnOverride column="update_by" javaType="com.thinkgem.jeesite.modules.sys.entity.User" property="updateBy" jdbcType="VARCHAR"/>
-        <columnOverride column="${your_column_name}" javaType="com.thinkgem.jeesite.modules.${your_class_path}" property="${class_camel_name}" jdbcType="VARCHAR">
+        **<columnOverride column="${your_column_name}" javaType="com.thinkgem.jeesite.modules.${your_class_path}" property="${class_camel_name}" jdbcType="VARCHAR">
             <property name="tableName" value="${the_table_related}"/>
             <property name="tableAlias" value="b"/>
-        </columnOverride>
+        </columnOverride>**
     </table>
 
 Here are something you have to be noticed about join in tables:
